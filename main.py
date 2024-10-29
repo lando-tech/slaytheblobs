@@ -4,25 +4,31 @@ from game_engine import slayer
 
 
 def main():
+    # Load
     pygame.init()
-    screen = pygame.display.set_mode((600, 600))
+    screen_dims = (600, 600)
+    screen = pygame.display.set_mode(screen_dims)
     clock = pygame.time.Clock()
-    running = True
-    player = slayer.Slayer(screen)
     dt = 0
-
+    player = slayer.Slayer(screen)
+    running = True
+    # Main loop
     while running:
+        # Get events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
                 sys.exit()
-        
-        screen.fill("white")
-        screen.blit(player.load_slayer(), (player.x, player.y))
+        # Move player
         player.move_slayer(dt)
-        dt = clock.tick(60) / 1000 
-        pygame.display.flip() 
-       
-       
+        # Handle player rotation
+        rotated_rect, rotated_img = player.rotation_data()
+        # Draw and update
+        screen.fill("white")
+        screen.blit(rotated_img, rotated_rect.topleft)
+        dt = clock.tick(60) / 1000
+        pygame.display.flip()
+
+
 if __name__ == "__main__":
     main()
