@@ -66,5 +66,3 @@ class Slayer(pygame.sprite.Sprite):
 
     def change_weapon(self):
         pass
-
-
